@@ -2,6 +2,13 @@ import { useTabBarStore } from "@/store/tab-bar.store"
 import { useRef } from "react"
 import type { NativeScrollEvent, NativeSyntheticEvent } from "react-native"
 
+/**
+ *  хук для скрытия tabBar при скролле
+ *
+ *
+ * @returns
+ */
+
 export default function useHideTabBar() {
 	const { setHidden } = useTabBarStore()
 

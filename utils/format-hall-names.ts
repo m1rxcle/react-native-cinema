@@ -1,3 +1,14 @@
+/**
+ * Функция для форматирования названий залов
+ * Принимает название зала
+ * Возвращает название зала
+ *
+ *
+ * @param name
+ *
+ * @returns
+ */
+
 export const formatHallName = (name: string): string => {
 	switch (name) {
 		case "Red":

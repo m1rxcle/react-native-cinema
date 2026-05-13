@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react"
 
+/**
+ *  хук для получения данных с сервера с помощью fetch
+ *  данные обновляются при изменении url
+ *  возвращает loading, data, error, reason
+ *
+ * @param url  url для получения данных => string
+ * @returns
+ */
+
 export default function useFetch<T>(url: string) {
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState<T | undefined>(undefined)

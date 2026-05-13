@@ -1,6 +1,16 @@
-import type { IFilmScheduleResponse } from "@/@types"
+import type { IFilmScheduleResponse, IHall } from "@/@types"
 
-export const getSeancePlaces = (data: IFilmScheduleResponse, seanceId: string) => {
+/**
+ * Функция для получения зала по активному сеансу и id фильма
+ * Принимает данные о сеансах и активный сеанс
+ * Возвращает название зала
+ *
+ * @param data
+ * @param seanceId
+ * @returns
+ */
+
+export const getSeancePlaces = (data: IFilmScheduleResponse, seanceId: string): IHall | undefined => {
 	if (!data) return
 	const serializedSeances = data.schedules.flatMap((schedule) => {
 		return schedule.seances.map((seance) => ({
@@ -11,7 +21,7 @@ export const getSeancePlaces = (data: IFilmScheduleResponse, seanceId: string) =
 
 	const currentSeance = serializedSeances.find((seance) => `${seance.date}-${seance.hall.name}-${seance.time}` === seanceId)
 
-	const places = currentSeance?.hall
+	const hall = currentSeance?.hall
 
-	return places
+	return hall
 }
