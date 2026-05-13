@@ -1,3 +1,4 @@
+import { usePlaceStore } from "@/store/place.store"
 import { useSeanceStore } from "@/store/seance.store"
 import { Ionicons } from "@expo/vector-icons"
 import { useRouter } from "expo-router"
@@ -11,6 +12,7 @@ interface Props extends TouchableOpacityProps {
 const ButtonBack = ({ children, ...props }: Props) => {
 	const router = useRouter()
 	const { setActiveSeance } = useSeanceStore()
+	const { resetPlaces } = usePlaceStore()
 
 	return (
 		<TouchableOpacity
@@ -18,6 +20,7 @@ const ButtonBack = ({ children, ...props }: Props) => {
 			onPress={() => {
 				router.back()
 				setActiveSeance("")
+				resetPlaces()
 			}}
 			className="flex flex-row items-start gap-4"
 		>

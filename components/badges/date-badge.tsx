@@ -1,5 +1,5 @@
 import { formatDate } from "@/utils/format-date"
-import { Text, TouchableOpacity, type TouchableOpacityProps } from "react-native"
+import { Pressable, Text, type TouchableOpacityProps } from "react-native"
 
 interface Props extends TouchableOpacityProps {
 	date: string
@@ -8,9 +8,9 @@ interface Props extends TouchableOpacityProps {
 
 const DateBadge = ({ date, className, ...props }: Props) => {
 	return (
-		<TouchableOpacity {...props} className={`rounded-full px-3 py-2 ${className}`}>
+		<Pressable {...props} className={`rounded-full px-3 py-2 ${className}`}>
 			<Text className="text-lg font-bold font-nunito">{formatDate(date)}</Text>
-		</TouchableOpacity>
+		</Pressable>
 	)
 }
 
