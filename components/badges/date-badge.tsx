@@ -1,7 +1,7 @@
 import { formatDate } from "@/utils/format-date"
-import { Pressable, Text, type TouchableOpacityProps } from "react-native"
+import { Pressable, Text, type PressableProps } from "react-native"
 
-interface Props extends TouchableOpacityProps {
+interface Props extends PressableProps {
 	date: string
 	className?: string
 }

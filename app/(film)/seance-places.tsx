@@ -17,14 +17,14 @@ export default function SeancePlacesScreen() {
 
 	const { selectedPlaceList } = usePlaceStore()
 
-	const places = useMemo(() => {
+	const hall = useMemo(() => {
 		if (!data) return
 		return getSeancePlaces(data, seanceId as string)
 	}, [data, seanceId])
 
-	if (!places && loading) return null
+	if (!hall && loading) return null
 
-	if (!places) return null
+	if (!hall) return null
 
 	return (
 		<View className="background min-h-full relative">
@@ -34,7 +34,7 @@ export default function SeancePlacesScreen() {
 				</ButtonBack>
 			</View>
 
-			<Places places={places.places} hallName={places.name} filmId={filmId} />
+			<Places places={hall.places} hallName={hall.name} filmId={filmId} />
 
 			<View className="absolute bottom-0 left-0 right-0 px-14">
 				<Button style={!selectedPlaceList.length ? { backgroundColor: "gray" } : {}} disabled={!selectedPlaceList.length}>

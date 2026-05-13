@@ -2,7 +2,7 @@ import type { IHall, Place } from "@/@types"
 import { usePlaceStore } from "@/store/place.store"
 import { useSeanceStore } from "@/store/seance.store"
 import { formattedPlaces } from "@/utils/format-places"
-import { useLayoutEffect } from "react"
+import { useLayoutEffect, useMemo } from "react"
 import { ScrollView, Text, TouchableWithoutFeedback, View } from "react-native"
 import HintToPlaces from "./hint-to-places"
 
@@ -22,7 +22,9 @@ const Places = ({ places, hallName, filmId }: Props) => {
 		}
 	}, [])
 
-	if (!places || !activeSeance) return
+	const selectedPlaceIds = useMemo(() => new Set(selectedPlaceList.map((p) => p.id)), [selectedPlaceList])
+
+	if (!places || !activeSeance) return null
 
 	const newPlaces = formattedPlaces(places, activeSeance, filmId, hallName)
 
@@ -48,8 +50,7 @@ const Places = ({ places, hallName, filmId }: Props) => {
 
 								<View className="flex flex-row gap-2">
 									{row.map((place) => {
-										const isPlaceSelected = selectedPlaceList.find((p) => p.id === place.id)
-
+										const isPlaceSelected = selectedPlaceIds.has(place.id)
 										return (
 											<TouchableWithoutFeedback
 												onPress={() => {
