@@ -20,17 +20,25 @@ export interface IFilmSchedule {
 export interface IFilmSeance {
 	hall: {
 		name: string
-		places: Place[][]
+		places: IPlace[][]
 	}
 	time: string
 }
 
 export interface IHall {
 	name: string
-	places: Place[][]
+	places: IPlace[][]
 }
 
-export interface Place {
+export interface IPlace {
+	price: number
+	type: PlaceTypeEnum
+}
+
+export interface IPlaceAfterFormat {
+	id: string
+	rowNumber: number
+	seatNumber: number
 	price: number
 	type: PlaceTypeEnum
 }
@@ -63,6 +71,14 @@ export interface IFilm {
 		code2: string
 		id: string
 	}
+}
+
+export type TProgressStep = 1 | 2 | 3 | 4
+
+export const placeTypeLabel: Record<PlaceTypeEnum, string> = {
+	[PlaceTypeEnum.BLOCKED]: "Недоступно",
+	[PlaceTypeEnum.ECONOM]: "Эконом",
+	[PlaceTypeEnum.COMFORT]: "Комфорт",
 }
 
 export interface FilmStuff {

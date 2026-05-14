@@ -1,18 +1,21 @@
-import type { IHall, Place } from "@/@types"
+import { IHall, IPlace, type IPlaceAfterFormat } from "@/@types"
 import { usePlaceStore } from "@/store/place.store"
 import { useSeanceStore } from "@/store/seance.store"
 import { formattedPlaces } from "@/utils/format-places"
 import { useLayoutEffect, useMemo } from "react"
-import { ScrollView, Text, TouchableWithoutFeedback, View } from "react-native"
+import { ScrollView, Text, View } from "react-native"
+import ProgressBar from "../kit/progress-bar"
 import HintToPlaces from "./hint-to-places"
+import Place from "./place"
 
 interface Props {
-	places: Place[][]
+	places: IPlace[][]
 	hallName: IHall["name"]
 	filmId: string | string[]
+	filmName: string | string[]
 }
 
-const Places = ({ places, hallName, filmId }: Props) => {
+const Places = ({ places, hallName, filmId, filmName }: Props) => {
 	const { selectedPlaceList, toggleSelectedPlace, resetPlaces } = usePlaceStore()
 	const { activeSeance } = useSeanceStore()
 
@@ -26,13 +29,16 @@ const Places = ({ places, hallName, filmId }: Props) => {
 
 	if (!places || !activeSeance) return null
 
-	const newPlaces = formattedPlaces(places, activeSeance, filmId, hallName)
+	const newPlaces = formattedPlaces(places, activeSeance, filmId, hallName, filmName as string)
 
 	return (
-		<View className="container mb-6">
+		<View className="container mb-6 overflow-auto">
+			<ProgressBar step={1} className="mb-6" />
+
 			<Text className="text-xl font-nunito mb-6">Ряд</Text>
 			<ScrollView
 				horizontal
+				removeClippedSubviews={false}
 				showsHorizontalScrollIndicator={hallName === "Blue"}
 				scrollEnabled={hallName === "Blue"}
 				className="pb-10"
@@ -40,7 +46,7 @@ const Places = ({ places, hallName, filmId }: Props) => {
 				indicatorClassName="visible"
 				contentContainerClassName="flex flex-col gap-6"
 			>
-				<View className="flex flex-col gap-6 ">
+				<View className="flex flex-col gap-6 mb-6">
 					{newPlaces.map((row, rowIndex) => {
 						return (
 							<View key={rowIndex} className="flex flex-row gap-6 items-center">
@@ -49,23 +55,16 @@ const Places = ({ places, hallName, filmId }: Props) => {
 								</View>
 
 								<View className="flex flex-row gap-2">
-									{row.map((place) => {
+									{row.map((place: IPlaceAfterFormat) => {
 										const isPlaceSelected = selectedPlaceIds.has(place.id)
 										return (
-											<TouchableWithoutFeedback
-												onPress={() => {
-													toggleSelectedPlace(place)
-												}}
+											<Place
+												hallName={hallName}
 												key={place.id}
-												disabled={place.type === "BLOCKED"}
-											>
-												<View
-													className={`${hallName !== "Red" ? "size-6" : "size-12"} rounded-md`}
-													style={{
-														backgroundColor: place.type === "BLOCKED" ? "black" : isPlaceSelected ? "#FFCDEE" : "#EBEBEB",
-													}}
-												/>
-											</TouchableWithoutFeedback>
+												seat={place}
+												isPlaceSelected={isPlaceSelected}
+												toggleSelectedPlace={toggleSelectedPlace}
+											/>
 										)
 									})}
 								</View>

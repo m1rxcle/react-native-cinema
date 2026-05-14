@@ -1,9 +1,9 @@
 import type { IFilmResponse, IFilmScheduleResponse } from "@/@types"
 import DateBadge from "@/components/badges/date-badge"
-import FilmImage from "@/components/film/film-image"
-import FilmNameWithGenres from "@/components/film/film-name-with-genres"
-import FilmRating from "@/components/film/film-rating"
-import Hall from "@/components/hall"
+import FilmImage from "@/components/films/film-image"
+import FilmNameWithGenres from "@/components/films/film-name-with-genres"
+import FilmRating from "@/components/films/film-rating"
+import Hall from "@/components/halls/hall"
 import ButtonBack from "@/components/kit/button-back"
 import FilmSkeleton from "@/components/skeletons/film-skeleton"
 import Button from "@/components/ui/button"
@@ -81,6 +81,7 @@ export default function FilmScreen() {
 							pathname: `/(film)/seance-places`,
 							params: {
 								filmId: film.id,
+								filmName: film.name,
 								seanceId: activeSeance,
 							},
 						})
