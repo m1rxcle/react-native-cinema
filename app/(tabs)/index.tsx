@@ -1,5 +1,5 @@
 import type { IFilmsResponse } from "@/@types"
-import FilmsList from "@/components/film/films-list"
+import FilmsList from "@/components/films/films-list"
 import { FilmListSkeleton } from "@/components/skeletons/film-list-skeleton"
 import { SERVER_API } from "@/constants/app.constants"
 import useFetch from "@/hooks/use-fetch"

@@ -1,4 +1,4 @@
-import type { Place } from "@/@types"
+import type { IPlace } from "@/@types"
 
 /**
  * Функция для форматирования мест
@@ -6,14 +6,21 @@ import type { Place } from "@/@types"
  * Возвращает массив мест
  *
  *
- * @param places - массив мест Place[][]
+ * @param places - массив мест IPlace[][]
  * @param activeSeance - активный сеанс string
  * @param filmId - id фильма string
  * @param hallName - название зала string
+ * @param filmName - название фильма string
  * @returns
  */
 
-export const formattedPlaces = (places: Place[][], activeSeance: string, filmId: string | string[], hallName: string) => {
+export const formattedPlaces = (
+	places: IPlace[][],
+	activeSeance: string,
+	filmId: string | string[],
+	filmName: string | string[],
+	hallName: string,
+) => {
 	let seatCounter = 1
 
 	return places.map((row, rowIndex) => {
@@ -23,6 +30,7 @@ export const formattedPlaces = (places: Place[][], activeSeance: string, filmId:
 				id: `${filmId}-${hallName}-${activeSeance}-${rowIndex + 1}-${seatCounter}`,
 				rowNumber: rowIndex + 1,
 				seatNumber: seatCounter++,
+				filmName: filmName.toString(),
 			}
 		})
 	})

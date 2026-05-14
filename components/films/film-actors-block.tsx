@@ -7,7 +7,7 @@ interface Props {
 	actors: FilmStuff[]
 }
 
-const ActorsBlock = ({ actors }: Props) => {
+const FilmActorsBlock = ({ actors }: Props) => {
 	const [errorToShowActorPic, setErrorToShowActorPic] = useState<Record<string, boolean>>({})
 
 	return (
@@ -45,4 +45,4 @@ const ActorsBlock = ({ actors }: Props) => {
 	)
 }
 
-export default ActorsBlock
+export default FilmActorsBlock

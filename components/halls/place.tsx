@@ -1,0 +1,52 @@
+import type { IPlaceAfterFormat } from "@/@types"
+import { flip, useFloating } from "@floating-ui/react-native"
+import React, { useLayoutEffect } from "react"
+import { Pressable, View } from "react-native"
+import Tooltip from "../ui/tooltip"
+
+interface Props {
+	seat: IPlaceAfterFormat
+	isPlaceSelected: boolean
+	hallName: string
+	toggleSelectedPlace: (place: IPlaceAfterFormat) => void
+}
+
+const Place = ({ seat, isPlaceSelected, hallName, toggleSelectedPlace }: Props) => {
+	const { refs, floatingStyles, update, placement } = useFloating({
+		placement: seat.rowNumber === 1 || seat.rowNumber === 2 ? "bottom" : "top",
+		middleware: [flip({ fallbackPlacements: ["top", "bottom"] })],
+	})
+
+	useLayoutEffect(() => {
+		if (isPlaceSelected) {
+			update()
+		}
+	}, [isPlaceSelected, update])
+
+	return (
+		<View className="relative">
+			<Pressable
+				ref={refs.setReference}
+				onPress={() => {
+					toggleSelectedPlace(seat)
+				}}
+				disabled={seat.type === "BLOCKED"}
+			>
+				<View
+					className={`${hallName !== "Red" ? "size-6" : "size-12"} rounded-md `}
+					style={{
+						backgroundColor: seat.type === "BLOCKED" ? "black" : isPlaceSelected ? "#FFCDEE" : "#EBEBEB",
+					}}
+				/>
+			</Pressable>
+
+			{isPlaceSelected && (
+				<View ref={refs.setFloating} style={floatingStyles} className="z-[1000]">
+					<Tooltip seat={seat} placement={placement} />
+				</View>
+			)}
+		</View>
+	)
+}
+
+export default Place

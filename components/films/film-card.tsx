@@ -2,8 +2,8 @@ import type { IFilm } from "@/@types"
 import { useRouter } from "expo-router"
 import React from "react"
 import { View } from "react-native"
-import ActorsBlock from "../actors-block"
 import Button from "../ui/button"
+import FilmActorsBlock from "./film-actors-block"
 import FilmImage from "./film-image"
 import FilmNameWithGenres from "./film-name-with-genres"
 import FilmRating from "./film-rating"
@@ -29,7 +29,7 @@ export const FilmCard = ({ film, size = "large", className }: Props) => {
 			<FilmImage size={size} filmImg={film.img} />
 			<FilmNameWithGenres className="text-lg font-semibold font-nunito" name={film.name} genres={film.genres} />
 
-			{isPremium && size === "large" && <ActorsBlock actors={film.actors} />}
+			{isPremium && size === "large" && <FilmActorsBlock actors={film.actors} />}
 
 			<Button onPress={() => onButtonPress(film.id)}>Подробнее</Button>
 
