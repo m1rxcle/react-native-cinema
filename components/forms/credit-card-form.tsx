@@ -3,6 +3,7 @@ import { cardDetailsSchema, type TCardDetails } from "@/schemas/card-details-sch
 import { useCheckoutStore } from "@/store/checkout.store"
 import { useSeanceStore } from "@/store/seance.store"
 import { useTicketsStore } from "@/store/tickets.store"
+import normalizeLocalParams from "@/utils/normalize-local-params"
 import { splitSeanceDate } from "@/utils/split-seance-date"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { isAxiosError } from "axios"
@@ -17,6 +18,8 @@ import Button from "../ui/button"
 
 const CreditCardDetailsForm = () => {
 	const { filmId } = useLocalSearchParams()
+
+	const normalizeFilmId = normalizeLocalParams(filmId)
 
 	const router = useRouter()
 
@@ -51,7 +54,7 @@ const CreditCardDetailsForm = () => {
 		try {
 			setLoadingPayload(true)
 			const response = await paymentApi.pay({
-				filmId: filmId[0],
+				filmId: normalizeFilmId,
 				debitCard: {
 					pan: data.cardNumber,
 					expireDate: `${data.month}/${data.year}`,

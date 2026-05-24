@@ -42,6 +42,7 @@ const FormField = <T extends FieldValues>({ control, label, controllerName, plac
 						placeholderTextColor="#9CA3AF"
 						className={`border p-3 rounded-full font-nunito font-semibold text-xl border-[#B7B7B7] ${error && "border-red-500"} ${className}`}
 						aria-disabled={disabled}
+						editable={!disabled}
 					/>
 				)}
 			/>

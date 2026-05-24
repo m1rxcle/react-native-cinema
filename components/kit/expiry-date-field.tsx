@@ -34,6 +34,7 @@ const ExpiryDateField = ({ control, disabled, error }: Props) => {
 							keyboardType="number-pad"
 							maxLength={2}
 							aria-disabled={disabled}
+							editable={!disabled}
 						/>
 					)}
 				/>
@@ -54,6 +55,7 @@ const ExpiryDateField = ({ control, disabled, error }: Props) => {
 							keyboardType="number-pad"
 							maxLength={2}
 							aria-disabled={disabled}
+							editable={!disabled}
 						/>
 					)}
 				/>

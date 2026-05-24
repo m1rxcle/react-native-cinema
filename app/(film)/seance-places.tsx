@@ -9,12 +9,15 @@ import { usePlaceStore } from "@/store/place.store"
 import { useSeanceStore } from "@/store/seance.store"
 import { useTicketsStore } from "@/store/tickets.store"
 import { generateTicketNumber } from "@/utils/generate-ticket-number"
+import normalizeLocalParams from "@/utils/normalize-local-params"
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { useEffect, useState } from "react"
 import { Text, View } from "react-native"
 
 export default function SeancePlacesScreen() {
 	const { filmId, filmName, seanceId } = useLocalSearchParams()
+
+	const normalizeFilmId = normalizeLocalParams(filmId)
 
 	const router = useRouter()
 
@@ -27,7 +30,7 @@ export default function SeancePlacesScreen() {
 			try {
 				setLoadingFilmSchedule(true)
 				setErrorGetFilmSchedule(null)
-				const response = await scheduleApi.getSchedule(filmId[0])
+				const response = await scheduleApi.getSchedule(normalizeFilmId)
 				setFilmSchedule(response.data.schedules)
 			} catch (error) {
 				if (error instanceof Error) {
@@ -39,7 +42,7 @@ export default function SeancePlacesScreen() {
 			}
 		}
 		load()
-	}, [filmId])
+	}, [normalizeFilmId])
 
 	//TODO: Сделать селекторы для каждого стора а так же (BOOK STORE)
 
@@ -82,7 +85,7 @@ export default function SeancePlacesScreen() {
 				</ButtonBack>
 			</View>
 
-			<Places places={hall.places} hallName={hall.name} filmId={filmId} filmName={filmName} />
+			<Places places={hall.places} hallName={hall.name} filmId={normalizeFilmId} filmName={filmName} />
 
 			<View className="absolute bottom-0 left-0 right-0 px-14">
 				<Button

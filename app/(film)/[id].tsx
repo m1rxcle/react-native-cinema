@@ -10,12 +10,15 @@ import ButtonBack from "@/components/kit/button-back"
 import FilmSkeleton from "@/components/skeletons/film-skeleton"
 import Button from "@/components/ui/button"
 import { useSeanceStore } from "@/store/seance.store"
+import normalizeLocalParams from "@/utils/normalize-local-params"
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { useEffect, useState } from "react"
 import { ScrollView, Text, View } from "react-native"
 
 export default function FilmScreen() {
 	const { id } = useLocalSearchParams()
+
+	const normalizeId = normalizeLocalParams(id)
 
 	const [film, setFilm] = useState<IFilmResponse["film"] | null>(null)
 	const [loadingFilm, setLoadingFilm] = useState(false)
@@ -32,7 +35,7 @@ export default function FilmScreen() {
 			setLoadingFilm(true)
 			setErrorGetFilm(null)
 			try {
-				const response = await filmApi.getFilmById(id[0])
+				const response = await filmApi.getFilmById(normalizeId)
 				setFilm(response.data.film)
 			} catch (error) {
 				console.log(error)
@@ -44,14 +47,14 @@ export default function FilmScreen() {
 			}
 		}
 		load()
-	}, [id])
+	}, [normalizeId])
 
 	useEffect(() => {
 		const load = async () => {
 			setLoadingFilmSchedule(true)
 			setErrorGetFilmSchedule(null)
 			try {
-				const response = await scheduleApi.getSchedule(id[0])
+				const response = await scheduleApi.getSchedule(normalizeId)
 				setFilmSchedule(response.data.schedules)
 			} catch (error) {
 				if (error instanceof Error) {
@@ -64,7 +67,7 @@ export default function FilmScreen() {
 		}
 
 		load()
-	}, [id])
+	}, [normalizeId])
 
 	const router = useRouter()
 	const { activeSeance } = useSeanceStore()
