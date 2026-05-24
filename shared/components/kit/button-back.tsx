@@ -1,5 +1,5 @@
-import { usePlaceStore } from "@/store/place.store"
-import { useSeanceStore } from "@/store/seance.store"
+import { usePlaceStore } from "@/shared/store/place.store"
+import { useSeanceStore } from "@/shared/store/seance.store"
 import { Ionicons } from "@expo/vector-icons"
 import { useRouter } from "expo-router"
 import { type ReactNode } from "react"

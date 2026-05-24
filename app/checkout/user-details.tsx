@@ -1,6 +1,6 @@
-import UserDetailsForm from "@/components/forms/user-details-form"
-import ButtonBack from "@/components/kit/button-back"
-import ProgressBar from "@/components/kit/progress-bar"
+import UserDetailsForm from "@/shared/components/forms/user-details-form"
+import ButtonBack from "@/shared/components/kit/button-back"
+import ProgressBar from "@/shared/components/kit/progress-bar"
 import { Text, View } from "react-native"
 
 const UserDetailsScreen = () => {

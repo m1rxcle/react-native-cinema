@@ -1,6 +1,6 @@
 import type { TabRouteNames } from "@/@types"
-import { TABS_ICONS, TABS_ROUT_NAME } from "@/constants/tab-bar.constants"
-import { useTabBarStore } from "@/store/tab-bar.store"
+import { TABS_ICONS, TABS_ROUT_NAME } from "@/shared/constants/tab-bar.constants"
+import { useTabBarStore } from "@/shared/store/tab-bar.store"
 import { Ionicons } from "@expo/vector-icons"
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs"
 import { Dimensions, Text, TouchableOpacity, View } from "react-native"

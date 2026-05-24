@@ -1,8 +1,8 @@
 import type { IFilmsResponse } from "@/@types"
 import { filmApi } from "@/api/film.api"
-import FilmsList from "@/components/films/films-list"
-import { FilmListSkeleton } from "@/components/skeletons/film-list-skeleton"
-import useHideTabBar from "@/hooks/use-hide-tab-bar"
+import FilmsList from "@/shared/components/films/films-list"
+import { FilmListSkeleton } from "@/shared/components/skeletons/film-list-skeleton"
+import useHideTabBar from "@/shared/hooks/use-hide-tab-bar"
 import { useEffect, useState } from "react"
 import { ScrollView, Text } from "react-native"
 

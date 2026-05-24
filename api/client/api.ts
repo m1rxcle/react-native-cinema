@@ -1,4 +1,4 @@
-import { SERVER_API } from "@/constants/app.constants"
+import { SERVER_API } from "@/shared/constants/app.constants"
 import { create } from "axios"
 
 export const api = create({

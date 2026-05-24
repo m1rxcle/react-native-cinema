@@ -1,5 +1,5 @@
-import { userDetailsSchema, type TUserDetails } from "@/schemas/user-details-schema"
-import { useCheckoutStore } from "@/store/checkout.store"
+import { userDetailsSchema, type TUserDetails } from "@/shared/schemas/user-details-schema"
+import { useCheckoutStore } from "@/shared/store/checkout.store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useLocalSearchParams, useRouter } from "expo-router"
 import React from "react"

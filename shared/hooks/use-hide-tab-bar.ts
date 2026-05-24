@@ -1,4 +1,4 @@
-import { useTabBarStore } from "@/store/tab-bar.store"
+import { useTabBarStore } from "@/shared/store/tab-bar.store"
 import { useRef } from "react"
 import type { NativeScrollEvent, NativeSyntheticEvent } from "react-native"
 
