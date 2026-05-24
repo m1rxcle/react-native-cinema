@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
  *  возвращает loading, data, error, reason
  *
  * @param url  url для получения данных => string
+ * @deprecated Уже не используется
  * @returns
  */
 

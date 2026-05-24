@@ -30,6 +30,7 @@ export default function FilmScreen() {
 	useEffect(() => {
 		const load = async () => {
 			setLoadingFilm(true)
+			setErrorGetFilm(null)
 			try {
 				const response = await filmApi.getFilmById(id[0])
 				setFilm(response.data.film)
@@ -48,6 +49,7 @@ export default function FilmScreen() {
 	useEffect(() => {
 		const load = async () => {
 			setLoadingFilmSchedule(true)
+			setErrorGetFilmSchedule(null)
 			try {
 				const response = await scheduleApi.getSchedule(id[0])
 				setFilmSchedule(response.data.schedules)

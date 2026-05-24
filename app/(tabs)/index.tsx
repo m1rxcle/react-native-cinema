@@ -20,6 +20,7 @@ export default function Index() {
 	useEffect(() => {
 		const load = async () => {
 			setLoadingFilms(true)
+			setError(null)
 			try {
 				const response = await filmApi.getFilms()
 				setFilms(response.data.films)
