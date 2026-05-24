@@ -20,7 +20,6 @@ export const FilmCard = ({ film, size = "large", className }: Props) => {
 	const isPremium = film.name.includes("Интерстеллар") || film.name.includes("Сайлент Хилл")
 
 	const onButtonPress = (filmId: string) => {
-		console.log(filmId)
 		router.push({ pathname: `/(film)/[id]`, params: { id: filmId } })
 	}
 

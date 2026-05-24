@@ -12,8 +12,8 @@ interface Props {
 }
 
 const Place = ({ seat, isPlaceSelected, hallName, toggleSelectedPlace }: Props) => {
-	const { refs, floatingStyles, update, placement } = useFloating({
-		placement: seat.rowNumber === 1 || seat.rowNumber === 2 ? "bottom" : "top",
+	const { refs, floatingStyles, update } = useFloating({
+		placement: "bottom",
 		middleware: [flip({ fallbackPlacements: ["top", "bottom"] })],
 	})
 
@@ -42,7 +42,7 @@ const Place = ({ seat, isPlaceSelected, hallName, toggleSelectedPlace }: Props) 
 
 			{isPlaceSelected && (
 				<View ref={refs.setFloating} style={floatingStyles} className="z-[1000]">
-					<Tooltip seat={seat} placement={placement} />
+					<Tooltip seat={seat} />
 				</View>
 			)}
 		</View>

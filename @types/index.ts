@@ -49,6 +49,33 @@ export enum PlaceTypeEnum {
 	COMFORT = "COMFORT",
 }
 
+export type TTicket = {
+	id: string
+	filmName: string
+	seat: {
+		rowNumber: number
+		seatNumber: number
+		price: number
+	}
+	seanceDate: string
+}
+
+export interface IUserDetails {
+	firstName: string
+	lastName: string
+	middleName: string
+	phone: string
+	city: string
+	email: string
+}
+
+export interface ICreditCardInfo {
+	cardNumber: string
+	month: string
+	year: string
+	cvv: string
+}
+
 export interface IFilm {
 	id: string
 	name: string
@@ -105,3 +132,26 @@ const ageRatings = {
 export type AgeRatings = (typeof ageRatings)[keyof typeof ageRatings]
 
 export type TabRouteNames = "index" | "tickets" | "profile"
+
+export type TCheckoutPayload = {
+	filmId: string
+	person: {
+		firstname: string
+		lastname: string
+		middlename: string
+		phone: string
+	}
+	debitCard: {
+		pan: string
+		expireDate: string
+		cvv: string
+	}
+	seance: {
+		date: string
+		time: string
+	}
+	tickets: {
+		row: number
+		column: number
+	}[]
+}

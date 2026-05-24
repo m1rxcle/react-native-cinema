@@ -1,9 +1,9 @@
 import type { IFilmsResponse } from "@/@types"
+import { filmApi } from "@/api/film.api"
 import FilmsList from "@/components/films/films-list"
 import { FilmListSkeleton } from "@/components/skeletons/film-list-skeleton"
-import { SERVER_API } from "@/constants/app.constants"
-import useFetch from "@/hooks/use-fetch"
 import useHideTabBar from "@/hooks/use-hide-tab-bar"
+import { useEffect, useState } from "react"
 import { ScrollView, Text } from "react-native"
 
 /**
@@ -13,24 +13,46 @@ import { ScrollView, Text } from "react-native"
  */
 
 export default function Index() {
-	const { data, loading, error, reason } = useFetch<IFilmsResponse>(`${SERVER_API}/cinema/films`)
+	const [films, setFilms] = useState<IFilmsResponse["films"] | null>(null)
+	const [loadingFilms, setLoadingFilms] = useState(false)
+	const [error, setError] = useState<string | null>(null)
+
+	useEffect(() => {
+		const load = async () => {
+			setLoadingFilms(true)
+			setError(null)
+			try {
+				const response = await filmApi.getFilms()
+				setFilms(response.data.films)
+			} catch (error) {
+				if (error instanceof Error) {
+					setError(error.message)
+				}
+				console.log(error)
+			} finally {
+				setLoadingFilms(false)
+			}
+		}
+		load()
+	}, [])
+
 	const { onScroll } = useHideTabBar()
 
-	if (!data && loading) return <FilmListSkeleton />
+	if (loadingFilms) return <FilmListSkeleton />
 
 	const categoriesOfFilms = {
-		fantasy: data?.films.filter((film) => film.genres.includes("фэнтези")) || [],
-		triller: data?.films.filter((film) => film.genres.includes("триллер")) || [],
-		premium: data?.films.filter((film) => film.name.includes("Интерстеллар") || film.name.includes("Сайлент Хилл")) || [],
-		horror: data?.films.filter((film) => film.genres.includes("ужасы")) || [],
+		fantasy: films?.filter((film) => film.genres.includes("фэнтези")) || [],
+		triller: films?.filter((film) => film.genres.includes("триллер")) || [],
+		premium: films?.filter((film) => film.name.includes("Интерстеллар") || film.name.includes("Сайлент Хилл")) || [],
+		horror: films?.filter((film) => film.genres.includes("ужасы")) || [],
 	}
 
 	return (
 		<ScrollView onScroll={onScroll} className="background flex-1">
 			<Text className="text-2xl font-nunito font-bold mb-3 container">Фильмы</Text>
 
-			{error && <Text className="text-red-500 text-lg">Ошибка: {reason || error}</Text>}
-			{data && data.films.length > 0 && (
+			{error && <Text className="text-red-500 text-lg">Ошибка: {error}</Text>}
+			{films && films.length > 0 && (
 				<FilmsList
 					fantasy={categoriesOfFilms.fantasy}
 					triller={categoriesOfFilms.triller}

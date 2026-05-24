@@ -1,23 +1,16 @@
+import type { TTicket } from "@/@types"
 import { create } from "zustand"
-
-type TTicket = {
-	id: string
-	filmName: string
-	seat: {
-		rowNumber: number
-		seatNumber: number
-		price: number
-	}
-	seanceDate: string
-}
 
 type TTicketsStore = {
 	ticketData: TTicket[]
+	totalAmount: number
+
 	setTicketData: (data: TTicket[]) => void
 }
 
 export const useTicketsStore = create<TTicketsStore>((set, get) => ({
 	ticketData: [],
+	totalAmount: 0,
 
-	setTicketData: (data: TTicket[]) => set({ ticketData: data }),
+	setTicketData: (data: TTicket[]) => set({ ticketData: data, totalAmount: data.reduce((acc, ticket) => acc + ticket.seat.price, 0) }),
 }))
