@@ -1,4 +1,4 @@
-import type { TCardDetails } from "@/schemas/card-details-schema"
+import type { TCardDetails } from "@/shared/schemas/card-details-schema"
 import { Controller, type Control, type ErrorOption } from "react-hook-form"
 import { Text, TextInput, View } from "react-native"
 

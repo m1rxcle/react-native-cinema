@@ -1,5 +1,5 @@
 import type { TProgressStep } from "@/@types"
-import { MAX_PROGRESS_BAR_STEPS } from "@/constants/app.constants"
+import { MAX_PROGRESS_BAR_STEPS } from "@/shared/constants/app.constants"
 import { Text, View } from "react-native"
 
 interface Props {

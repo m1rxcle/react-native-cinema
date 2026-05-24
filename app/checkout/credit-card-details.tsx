@@ -1,6 +1,6 @@
-import CreditCardDetailsForm from "@/components/forms/credit-card-form"
-import ButtonBack from "@/components/kit/button-back"
-import ProgressBar from "@/components/kit/progress-bar"
+import CreditCardDetailsForm from "@/shared/components/forms/credit-card-form"
+import ButtonBack from "@/shared/components/kit/button-back"
+import ProgressBar from "@/shared/components/kit/progress-bar"
 import { Text, View } from "react-native"
 
 const CreditCardDetailsScreen = () => {

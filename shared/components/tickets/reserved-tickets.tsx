@@ -1,5 +1,5 @@
 import type { TTicket } from "@/@types"
-import { splitSeanceDate } from "@/utils/split-seance-date"
+import { splitSeanceDate } from "@/shared/utils/split-seance-date"
 import { Ionicons } from "@expo/vector-icons"
 import React from "react"
 import { Text, View } from "react-native"

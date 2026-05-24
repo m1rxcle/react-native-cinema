@@ -1,6 +1,6 @@
 import type { IFilmSchedule, IFilmSeance } from "@/@types"
-import { useSeanceStore } from "@/store/seance.store"
-import { formatHallName } from "@/utils/format-hall-names"
+import { useSeanceStore } from "@/shared/store/seance.store"
+import { formatHallName } from "@/shared/utils/format-hall-names"
 import { Ionicons } from "@expo/vector-icons"
 import { Pressable, Text, View } from "react-native"
 

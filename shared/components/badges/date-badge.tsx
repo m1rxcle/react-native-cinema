@@ -1,4 +1,4 @@
-import { formatDate } from "@/utils/format-date"
+import { formatDate } from "@/shared/utils/format-date"
 import { Pressable, Text, type PressableProps } from "react-native"
 
 interface Props extends PressableProps {
