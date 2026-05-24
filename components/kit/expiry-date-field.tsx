@@ -4,10 +4,11 @@ import { Text, TextInput, View } from "react-native"
 
 interface Props {
 	control: Control<TCardDetails>
+	disabled?: boolean
 	error?: ErrorOption
 }
 
-const ExpiryDateField = ({ control, error }: Props) => {
+const ExpiryDateField = ({ control, disabled, error }: Props) => {
 	return (
 		<View className="flex-1 gap-2">
 			<Text className="font-semibold font-nunito text-black">Срок*</Text>
@@ -32,6 +33,7 @@ const ExpiryDateField = ({ control, error }: Props) => {
 							className="p-3 text-xl"
 							keyboardType="number-pad"
 							maxLength={2}
+							aria-disabled={disabled}
 						/>
 					)}
 				/>
@@ -51,6 +53,7 @@ const ExpiryDateField = ({ control, error }: Props) => {
 							className="p-3 text-xl"
 							keyboardType="number-pad"
 							maxLength={2}
+							aria-disabled={disabled}
 						/>
 					)}
 				/>

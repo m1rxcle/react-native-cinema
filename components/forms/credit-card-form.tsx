@@ -9,7 +9,7 @@ import { isAxiosError } from "axios"
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { View } from "react-native"
+import { ActivityIndicator, View } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import ExpiryDateField from "../kit/expiry-date-field"
 import FormField from "../kit/form-field"
@@ -46,10 +46,12 @@ const CreditCardDetailsForm = () => {
 
 		const { date, hall, time } = splitSeanceDate(activeSeance)
 
+		setCreditCardInfo(data)
+
 		try {
 			setLoadingPayload(true)
 			const response = await paymentApi.pay({
-				filmId: filmId[0] as string,
+				filmId: filmId[0],
 				debitCard: {
 					pan: data.cardNumber,
 					expireDate: `${data.month}/${data.year}`,
@@ -70,24 +72,20 @@ const CreditCardDetailsForm = () => {
 					column: ticket.seat.seatNumber,
 				})),
 			})
-
-			console.log(response.data)
 		} catch (error) {
 			if (isAxiosError(error)) {
-				console.log("STATUS:", error.response?.status)
-				console.log("DATA:", error.response?.data)
+				console.error(error.response?.status)
 			} else {
 				console.log(error)
 			}
 		} finally {
 			setLoadingPayload(false)
 		}
-
-		setCreditCardInfo(data)
 	}
 
 	return (
-		<View className="relative flex-1">
+		<View className={`relative flex-1 ${loadingPayload && "opacity-50"}`}>
+			{loadingPayload && <ActivityIndicator size="large" color="black" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />}
 			<KeyboardAwareScrollView style={{ flex: 1 }}>
 				<View className="flex flex-col justify-between flex-1">
 					<View className="flex flex-col gap-6 mb-6 bg-[#F5F5F5] p-6 rounded-2xl">
@@ -97,15 +95,20 @@ const CreditCardDetailsForm = () => {
 							controllerName="cardNumber"
 							placeholder="Введите номер карты"
 							error={errors.cardNumber}
+							disabled={loadingPayload}
 						/>
 						<View className="flex flex-row justify-between gap-4">
-							<ExpiryDateField control={control} error={errors.month || errors.year} />
-							<FormField control={control} label="CVV*" controllerName="cvv" placeholder="0000" error={errors.cvv} />
+							<ExpiryDateField control={control} error={errors.month || errors.year} disabled={loadingPayload} />
+							<FormField control={control} label="CVV*" controllerName="cvv" placeholder="0000" error={errors.cvv} disabled={loadingPayload} />
 						</View>
 					</View>
 				</View>
 			</KeyboardAwareScrollView>
-			<Button className="fixed bottom-0 left-0 right-0" onPress={handleSubmit(onSubmit)}>
+			<Button
+				disabled={loadingPayload}
+				className={`fixed bottom-0 left-0 right-0 ${loadingPayload && "bg-gray-500"}`}
+				onPress={handleSubmit(onSubmit)}
+			>
 				Продолжить
 			</Button>
 		</View>

@@ -67,14 +67,14 @@ export default function FilmScreen() {
 	const router = useRouter()
 	const { activeSeance } = useSeanceStore()
 
+	if (errorGetFilm) return <Text>{errorGetFilm}</Text>
+	if (errorGetFilmSchedule) return <Text>{errorGetFilmSchedule}</Text>
+
 	if (loadingFilm && !film) return <FilmSkeleton />
 	if (!film) return null
 
 	if (loadingFilmSchedule && !filmSchedule) return <FilmSkeleton />
 	if (!filmSchedule) return null
-
-	if (errorGetFilm) return <Text>{errorGetFilm}</Text>
-	if (errorGetFilmSchedule) return <Text>{errorGetFilmSchedule}</Text>
 
 	return (
 		<View className="background relative flex-1">

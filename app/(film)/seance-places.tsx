@@ -26,7 +26,7 @@ export default function SeancePlacesScreen() {
 		const load = async () => {
 			try {
 				setLoadingFilmSchedule(true)
-				const response = await scheduleApi.getSchedule(filmId[0] as string)
+				const response = await scheduleApi.getSchedule(filmId[0])
 				setFilmSchedule(response.data.schedules)
 			} catch (error) {
 				if (error instanceof Error) {

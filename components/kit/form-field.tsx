@@ -7,11 +7,12 @@ interface Props<T extends FieldValues> {
 	label: string
 	controllerName: FieldPath<T>
 	placeholder: string
+	disabled?: boolean
 	error?: FieldError
 	className?: string
 }
 
-const FormField = <T extends FieldValues>({ control, label, controllerName, placeholder, error, className }: Props<T>) => {
+const FormField = <T extends FieldValues>({ control, label, controllerName, placeholder, disabled, error, className }: Props<T>) => {
 	return (
 		<View className="flex flex-col gap-2 flex-1">
 			<Text className={`font-semibold font-nunito text-black ${error && "text-red-500"}`}>{label}</Text>
@@ -40,6 +41,7 @@ const FormField = <T extends FieldValues>({ control, label, controllerName, plac
 						placeholder={placeholder}
 						placeholderTextColor="#9CA3AF"
 						className={`border p-3 rounded-full font-nunito font-semibold text-xl border-[#B7B7B7] ${error && "border-red-500"} ${className}`}
+						aria-disabled={disabled}
 					/>
 				)}
 			/>

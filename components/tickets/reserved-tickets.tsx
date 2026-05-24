@@ -9,6 +9,8 @@ interface Props {
 }
 
 const ReservedTickets = ({ tickets }: Props) => {
+	if (!tickets.length) return null
+
 	return (
 		<View>
 			<View className="mb-3">
