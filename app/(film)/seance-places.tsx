@@ -1,45 +1,61 @@
 import type { IFilmScheduleResponse } from "@/@types"
+import { scheduleApi } from "@/api/schedule.api"
 import Places from "@/components/halls/places"
 import ButtonBack from "@/components/kit/button-back"
 import PlacesSkeleton from "@/components/skeletons/places-skeleton"
 import Button from "@/components/ui/button"
-import { SERVER_API } from "@/constants/app.constants"
-import useFetch from "@/hooks/use-fetch"
+import useGetHall from "@/hooks/use-get-hall"
 import { usePlaceStore } from "@/store/place.store"
 import { useSeanceStore } from "@/store/seance.store"
 import { useTicketsStore } from "@/store/tickets.store"
 import { generateTicketNumber } from "@/utils/generate-ticket-number"
-import { getSeancePlaces } from "@/utils/get-seance-places"
 import { useLocalSearchParams, useRouter } from "expo-router"
-import { useMemo } from "react"
+import { useEffect, useState } from "react"
 import { Text, View } from "react-native"
 
 export default function SeancePlacesScreen() {
-	const router = useRouter()
-
 	const { filmId, filmName, seanceId } = useLocalSearchParams()
 
-	const { data, loading } = useFetch<IFilmScheduleResponse>(`${SERVER_API}/cinema/film/${filmId}/schedule`)
+	const router = useRouter()
 
-	//TODO: Сделать селекторы для каждого стора
+	const [filmSchedule, setFilmSchedule] = useState<IFilmScheduleResponse["schedules"] | null>(null)
+	const [loadingFilmSchedule, setLoadingFilmSchedule] = useState(false)
+	const [errorGetFilmSchedule, setErrorGetFilmSchedule] = useState<string | null>(null)
+
+	useEffect(() => {
+		const load = async () => {
+			try {
+				setLoadingFilmSchedule(true)
+				const response = await scheduleApi.getSchedule(filmId[0] as string)
+				setFilmSchedule(response.data.schedules)
+			} catch (error) {
+				if (error instanceof Error) {
+					setErrorGetFilmSchedule(error.message)
+				}
+				console.log(error)
+			} finally {
+				setLoadingFilmSchedule(false)
+			}
+		}
+		load()
+	}, [filmId])
+
+	//TODO: Сделать селекторы для каждого стора а так же (BOOK STORE)
 
 	const { selectedPlaceList } = usePlaceStore()
 	const { setTicketData } = useTicketsStore()
 	const { activeSeance } = useSeanceStore()
 
-	//TODO: Вынести в отдельный хук
+	const hall = useGetHall(filmSchedule, seanceId)
 
-	const hall = useMemo(() => {
-		if (!data) return
-		return getSeancePlaces(data, seanceId as string)
-	}, [data, seanceId])
-
-	if (!hall && loading) return <PlacesSkeleton />
+	if (!hall && loadingFilmSchedule) return <PlacesSkeleton />
 
 	if (!hall) return null
 
+	if (errorGetFilmSchedule) return <Text>{errorGetFilmSchedule}</Text>
+
 	const collectTicketsData = () => {
-		if (!selectedPlaceList.length || !activeSeance) return
+		if (!selectedPlaceList.length || !activeSeance) return false
 
 		setTicketData(
 			selectedPlaceList.map((place) => ({
@@ -53,6 +69,8 @@ export default function SeancePlacesScreen() {
 				seanceDate: activeSeance,
 			})),
 		)
+
+		return true
 	}
 
 	return (
@@ -68,8 +86,9 @@ export default function SeancePlacesScreen() {
 			<View className="absolute bottom-0 left-0 right-0 px-14">
 				<Button
 					onPress={() => {
-						collectTicketsData()
-						router.push(`/(film)/reserved-tickets-info`)
+						const isSuccess = collectTicketsData()
+						if (!isSuccess) return
+						router.push({ pathname: `/(film)/reserved-tickets-info`, params: { filmId } })
 					}}
 					style={!selectedPlaceList.length && { backgroundColor: "gray" }}
 					disabled={!selectedPlaceList.length}

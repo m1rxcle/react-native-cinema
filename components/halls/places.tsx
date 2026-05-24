@@ -29,7 +29,7 @@ const Places = ({ places, hallName, filmId, filmName }: Props) => {
 
 	if (!places || !activeSeance) return null
 
-	const newPlaces = formattedPlaces(places, activeSeance, filmId, hallName, filmName as string)
+	const newPlaces = formattedPlaces(places, activeSeance, filmId, filmName as string, hallName)
 
 	return (
 		<View className="container mb-6 overflow-auto">

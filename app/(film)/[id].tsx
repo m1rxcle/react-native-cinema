@@ -1,4 +1,6 @@
 import type { IFilmResponse, IFilmScheduleResponse } from "@/@types"
+import { filmApi } from "@/api/film.api"
+import { scheduleApi } from "@/api/schedule.api"
 import DateBadge from "@/components/badges/date-badge"
 import FilmImage from "@/components/films/film-image"
 import FilmNameWithGenres from "@/components/films/film-name-with-genres"
@@ -7,29 +9,72 @@ import Hall from "@/components/halls/hall"
 import ButtonBack from "@/components/kit/button-back"
 import FilmSkeleton from "@/components/skeletons/film-skeleton"
 import Button from "@/components/ui/button"
-import { SERVER_API } from "@/constants/app.constants"
-import useFetch from "@/hooks/use-fetch"
 import { useSeanceStore } from "@/store/seance.store"
 import { useLocalSearchParams, useRouter } from "expo-router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ScrollView, Text, View } from "react-native"
 
 export default function FilmScreen() {
 	const { id } = useLocalSearchParams()
+
+	const [film, setFilm] = useState<IFilmResponse["film"] | null>(null)
+	const [loadingFilm, setLoadingFilm] = useState(false)
+	const [errorGetFilm, setErrorGetFilm] = useState<string | null>(null)
+
+	const [filmSchedule, setFilmSchedule] = useState<IFilmScheduleResponse["schedules"] | null>(null)
+	const [loadingFilmSchedule, setLoadingFilmSchedule] = useState(false)
+	const [errorGetFilmSchedule, setErrorGetFilmSchedule] = useState<string | null>(null)
+
+	const [activeBadge, setActiveBadge] = useState(0)
+
+	useEffect(() => {
+		const load = async () => {
+			setLoadingFilm(true)
+			try {
+				const response = await filmApi.getFilmById(id[0])
+				setFilm(response.data.film)
+			} catch (error) {
+				console.log(error)
+				if (error instanceof Error) {
+					setErrorGetFilm(error.message)
+				}
+			} finally {
+				setLoadingFilm(false)
+			}
+		}
+		load()
+	}, [id])
+
+	useEffect(() => {
+		const load = async () => {
+			setLoadingFilmSchedule(true)
+			try {
+				const response = await scheduleApi.getSchedule(id[0])
+				setFilmSchedule(response.data.schedules)
+			} catch (error) {
+				if (error instanceof Error) {
+					setErrorGetFilmSchedule(error.message)
+				}
+				console.log(error)
+			} finally {
+				setLoadingFilmSchedule(false)
+			}
+		}
+
+		load()
+	}, [id])
+
 	const router = useRouter()
 	const { activeSeance } = useSeanceStore()
 
-	const { data: filmData, loading: loadingFilmData } = useFetch<IFilmResponse>(`${SERVER_API}/cinema/film/${id}`)
-	const { data: filmSchedule, loading: loadingSchedule } = useFetch<IFilmScheduleResponse>(`${SERVER_API}/cinema/film/${id}/schedule`)
-	const [activeBadge, setActiveBadge] = useState(0)
+	if (loadingFilm && !film) return <FilmSkeleton />
+	if (!film) return null
 
-	if (!filmData && loadingFilmData) return <FilmSkeleton />
-	if (!filmData) return null
-	const film = filmData.film
-
-	if (!filmSchedule && loadingSchedule) return <FilmSkeleton />
+	if (loadingFilmSchedule && !filmSchedule) return <FilmSkeleton />
 	if (!filmSchedule) return null
-	const schedules = filmSchedule.schedules
+
+	if (errorGetFilm) return <Text>{errorGetFilm}</Text>
+	if (errorGetFilmSchedule) return <Text>{errorGetFilmSchedule}</Text>
 
 	return (
 		<View className="background relative flex-1">
@@ -47,10 +92,12 @@ export default function FilmScreen() {
 				</View>
 				<View>
 					<ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="bg-[#F3F3F3] p-2 rounded-full ml-4 mb-6">
-						{!loadingSchedule &&
-							schedules &&
-							schedules.length > 0 &&
-							schedules.map((schedule, index) => {
+						{!loadingFilmSchedule &&
+							!errorGetFilmSchedule &&
+							!errorGetFilm &&
+							filmSchedule &&
+							filmSchedule.length > 0 &&
+							filmSchedule.map((schedule, index) => {
 								return (
 									<DateBadge
 										key={index}
@@ -69,7 +116,7 @@ export default function FilmScreen() {
 								)
 							})}
 					</ScrollView>
-					<View className="container">{schedules ? <Hall schedule={schedules[activeBadge]} /> : <Text>Ничего нет</Text>}</View>
+					<View className="container">{filmSchedule ? <Hall schedule={filmSchedule[activeBadge]} /> : <Text>Ничего нет</Text>}</View>
 				</View>
 			</ScrollView>
 			<View className="absolute bottom-0 left-0 right-0 px-14">

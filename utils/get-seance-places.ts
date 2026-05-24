@@ -10,9 +10,9 @@ import type { IFilmScheduleResponse, IHall } from "@/@types"
  * @returns
  */
 
-export const getSeancePlaces = (data: IFilmScheduleResponse, seanceId: string): IHall | undefined => {
-	if (!data) return
-	const serializedSeances = data.schedules.flatMap((schedule) => {
+export const getSeancePlaces = (schedules: IFilmScheduleResponse["schedules"], seanceId: string): IHall | undefined => {
+	if (!schedules) return
+	const serializedSeances = schedules.flatMap((schedule) => {
 		return schedule.seances.map((seance) => ({
 			...seance,
 			date: schedule.date,
