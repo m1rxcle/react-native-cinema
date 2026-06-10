@@ -28,8 +28,8 @@ export const formattedPlaces = (
 			return {
 				...place,
 				id: `${filmId}-${hallName}-${activeSeance}-${rowIndex + 1}-${seatCounter}`,
-				rowNumber: rowIndex + 1,
-				seatNumber: seatCounter++,
+				row: rowIndex + 1,
+				seat: seatCounter++,
 				filmName: filmName.toString(),
 			}
 		})

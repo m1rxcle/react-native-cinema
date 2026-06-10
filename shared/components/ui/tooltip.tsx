@@ -21,7 +21,7 @@ const Tooltip = ({ seat }: Props) => {
 				</View>
 				<View>
 					<Text className="text-[#B7B7B7] text-xs">
-						{seat.rowNumber} ряд, {seat.seatNumber} место
+						{seat.row} ряд, {seat.seat} место
 					</Text>
 				</View>
 			</View>

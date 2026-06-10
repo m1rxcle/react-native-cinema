@@ -17,6 +17,7 @@ import { ScrollView, Text, View } from "react-native"
 
 export default function FilmScreen() {
 	const { id } = useLocalSearchParams()
+	const router = useRouter()
 
 	const normalizeId = normalizeLocalParams(id)
 
@@ -69,8 +70,7 @@ export default function FilmScreen() {
 		load()
 	}, [normalizeId])
 
-	const router = useRouter()
-	const { activeSeance } = useSeanceStore()
+	const { activeSeance, setActiveSeance } = useSeanceStore()
 
 	if (errorGetFilm) return <Text>{errorGetFilm}</Text>
 	if (errorGetFilmSchedule) return <Text>{errorGetFilmSchedule}</Text>
@@ -85,7 +85,7 @@ export default function FilmScreen() {
 		<View className="background relative flex-1">
 			<ScrollView contentContainerClassName="pb-32">
 				<View className="mb-8 container">
-					<ButtonBack>О фильме</ButtonBack>
+					<ButtonBack onPress={() => setActiveSeance("")}>О фильме</ButtonBack>
 				</View>
 				<View className="flex flex-col gap-4 container mb-6">
 					<View className="relative">

@@ -46,7 +46,7 @@ export default function SeancePlacesScreen() {
 
 	//TODO: Сделать селекторы для каждого стора а так же (BOOK STORE)
 
-	const { selectedPlaceList } = usePlaceStore()
+	const { selectedPlaceList, resetPlaces } = usePlaceStore()
 	const { setTicketData } = useTicketsStore()
 	const { activeSeance } = useSeanceStore()
 
@@ -66,11 +66,11 @@ export default function SeancePlacesScreen() {
 				id: generateTicketNumber(),
 				filmName: filmName as string,
 				seat: {
-					rowNumber: place.rowNumber,
-					seatNumber: place.seatNumber,
+					row: place.row,
+					seat: place.seat,
 					price: place.price,
 				},
-				seanceDate: activeSeance,
+				seance: activeSeance,
 			})),
 		)
 
@@ -80,9 +80,7 @@ export default function SeancePlacesScreen() {
 	return (
 		<View className="background min-h-full relative">
 			<View className="container mb-8">
-				<ButtonBack>
-					<Text>Выбор места</Text>
-				</ButtonBack>
+				<ButtonBack onPress={() => resetPlaces()}>Выбор места</ButtonBack>
 			</View>
 
 			<Places places={hall.places} hallName={hall.name} filmId={normalizeFilmId} filmName={filmName} />

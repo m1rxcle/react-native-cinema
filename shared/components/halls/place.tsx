@@ -30,12 +30,12 @@ const Place = ({ seat, isPlaceSelected, hallName, toggleSelectedPlace }: Props) 
 				onPress={() => {
 					toggleSelectedPlace(seat)
 				}}
-				disabled={seat.type === "BLOCKED"}
+				disabled={seat.type === "blocked"}
 			>
 				<View
 					className={`${hallName !== "Red" ? "size-6" : "size-12"} rounded-md `}
 					style={{
-						backgroundColor: seat.type === "BLOCKED" ? "black" : isPlaceSelected ? "#FFCDEE" : "#EBEBEB",
+						backgroundColor: seat.type === "blocked" ? "#000000" : isPlaceSelected ? "#FFCDEE" : "#EBEBEB",
 					}}
 				/>
 			</Pressable>

@@ -37,27 +37,27 @@ export interface IPlace {
 
 export interface IPlaceAfterFormat {
 	id: string
-	rowNumber: number
-	seatNumber: number
+	row: number
+	seat: number
 	price: number
 	type: PlaceTypeEnum
 }
 
 export enum PlaceTypeEnum {
-	BLOCKED = "BLOCKED",
-	ECONOM = "ECONOM",
-	COMFORT = "COMFORT",
+	BLOCKED = "blocked",
+	ECONOM = "econom",
+	COMFORT = "comfort",
 }
 
 export type TTicket = {
 	id: string
 	filmName: string
 	seat: {
-		rowNumber: number
-		seatNumber: number
+		row: number
+		seat: number
 		price: number
 	}
-	seanceDate: string
+	seance: string
 }
 
 export interface IUserDetails {
@@ -135,12 +135,7 @@ export type TabRouteNames = "index" | "tickets" | "profile"
 
 export type TCheckoutPayload = {
 	filmId: string
-	person: {
-		firstname: string
-		lastname: string
-		middlename: string
-		phone: string
-	}
+	person: IPerson
 	debitCard: {
 		pan: string
 		expireDate: string
@@ -154,4 +149,35 @@ export type TCheckoutPayload = {
 		row: number
 		column: number
 	}[]
+}
+
+export interface IPerson {
+	firstname: string
+	lastname: string
+	middlename: string
+	phone: string
+}
+
+export interface IOrder {
+	_id: string
+	film: IFilm
+	orderNumber: number
+	person: IPerson
+	status: OrderStatusEnum
+	tickets: {
+		_id: string
+		column: number
+		row: number
+		filmId: string
+		orderId: string
+		seance: {
+			date: string
+			time: string
+		}
+	}[]
+}
+
+export enum OrderStatusEnum {
+	paid = "paid",
+	canceled = "canceled",
 }
