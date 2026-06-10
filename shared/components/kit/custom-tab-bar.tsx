@@ -4,7 +4,7 @@ import { useTabBarStore } from "@/shared/store/tab-bar.store"
 import { Ionicons } from "@expo/vector-icons"
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs"
 import { Dimensions, Text, TouchableOpacity, View } from "react-native"
-import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated"
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
 
 const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 	const { hidden } = useTabBarStore()
@@ -15,7 +15,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
 			transform: [{ translateX: translateX.value }],
 		}
 	})
-	const tabStyle = useAnimatedStyle(() => {
+	/* const tabStyle = useAnimatedStyle(() => {
 		return {
 			transform: [
 				{
@@ -31,7 +31,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
 				duration: 300,
 			}),
 		}
-	})
+	}) */
 
 	const SCREEN_WIDTH = Dimensions.get("window").width
 
@@ -39,7 +39,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
 
 	return (
 		<Animated.View
-			style={[tabStyle]}
+			/* style={[tabStyle]} */
 			className={`absolute left-0 right-0 bottom-4 py-4 background opacity-95 backdrop-blur-md mx-12 rounded-full border border-black  shadow-sm`}
 		>
 			<View className="relative flex flex-row items-center mx-auto">

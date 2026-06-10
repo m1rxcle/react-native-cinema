@@ -5,8 +5,8 @@ type TSelectedPlace = {
 	id: string
 	price: number
 	type: PlaceTypeEnum
-	rowNumber: number
-	seatNumber: number
+	row: number
+	seat: number
 }
 
 type PlaceStore = {

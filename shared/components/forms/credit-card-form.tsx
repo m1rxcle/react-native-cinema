@@ -1,6 +1,7 @@
 import { paymentApi } from "@/api/payment.api"
 import { cardDetailsSchema, type TCardDetails } from "@/shared/schemas/card-details-schema"
 import { useCheckoutStore } from "@/shared/store/checkout.store"
+import { useOrderStore } from "@/shared/store/order.store"
 import { useSeanceStore } from "@/shared/store/seance.store"
 import { useTicketsStore } from "@/shared/store/tickets.store"
 import normalizeLocalParams from "@/shared/utils/normalize-local-params"
@@ -28,6 +29,7 @@ const CreditCardDetailsForm = () => {
 	const { creditCardInfo, setCreditCardInfo, userDetails } = useCheckoutStore()
 	const { activeSeance } = useSeanceStore()
 	const { ticketData } = useTicketsStore()
+	const { setLastOrder } = useOrderStore()
 
 	const {
 		control,
@@ -36,10 +38,10 @@ const CreditCardDetailsForm = () => {
 	} = useForm<TCardDetails>({
 		resolver: zodResolver(cardDetailsSchema),
 		defaultValues: {
-			cardNumber: creditCardInfo.cardNumber || "",
-			month: creditCardInfo.month || "",
-			year: creditCardInfo.year || "",
-			cvv: creditCardInfo.cvv || "",
+			cardNumber: creditCardInfo.cardNumber || "5555 5555 5555 5555",
+			month: creditCardInfo.month || "10",
+			year: creditCardInfo.year || "25",
+			cvv: creditCardInfo.cvv || "0000",
 		},
 		mode: "onSubmit",
 	})
@@ -71,13 +73,16 @@ const CreditCardDetailsForm = () => {
 					time,
 				},
 				tickets: ticketData.map((ticket) => ({
-					row: ticket.seat.rowNumber,
-					column: ticket.seat.seatNumber,
+					row: ticket.seat.row,
+					column: ticket.seat.seat,
 				})),
 			})
+
+			setLastOrder(response.data.order)
+			router.replace({ pathname: "/checkout/success-payment" })
 		} catch (error) {
 			if (isAxiosError(error)) {
-				console.error(error.response?.status)
+				console.error(error.response?.data)
 			} else {
 				console.log(error)
 			}

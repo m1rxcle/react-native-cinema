@@ -23,12 +23,12 @@ const UserDetailsForm = () => {
 	} = useForm<TUserDetails>({
 		resolver: zodResolver(userDetailsSchema),
 		defaultValues: {
-			firstName: userDetails.firstName || "",
-			lastName: userDetails.lastName || "",
-			middleName: userDetails.middleName || "",
-			phone: userDetails.phone || "",
-			city: userDetails.city || "",
-			email: userDetails.email || "",
+			firstName: userDetails.firstName || "asdasdsad",
+			lastName: userDetails.lastName || "asdsadsad",
+			middleName: userDetails.middleName || "asdsadsa",
+			phone: userDetails.phone || "89212632795",
+			city: userDetails.city || "asdlasd",
+			email: userDetails.email || "mira@mail.ru",
 		},
 		mode: "onSubmit",
 	})
