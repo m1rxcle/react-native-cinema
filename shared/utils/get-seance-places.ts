@@ -1,5 +1,3 @@
-import type { IFilmScheduleResponse, IHall } from "@/@types"
-
 /**
  * Функция для получения зала по активному сеансу и id фильма
  * Принимает данные о сеансах и активный сеанс
@@ -10,7 +8,10 @@ import type { IFilmScheduleResponse, IHall } from "@/@types"
  * @returns
  */
 
-export const getSeancePlaces = (schedules: IFilmScheduleResponse["schedules"], seanceId: string): IHall | undefined => {
+import type { IFilmScheduleResponse } from "@/@types/response.type"
+import type { IHall } from "@/@types/ticket.type"
+
+export const getSeanceHall = (schedules: IFilmScheduleResponse["schedules"], seanceId: string): IHall | undefined => {
 	if (!schedules) return
 	const serializedSeances = schedules.flatMap((schedule) => {
 		return schedule.seances.map((seance) => ({

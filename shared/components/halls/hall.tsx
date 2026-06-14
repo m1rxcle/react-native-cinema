@@ -1,4 +1,4 @@
-import type { IFilmSchedule, IFilmSeance } from "@/@types"
+import type { IFilmSchedule, IFilmSeance } from "@/@types/film.type"
 import { useSeanceStore } from "@/shared/store/seance.store"
 import { formatHallName } from "@/shared/utils/format-hall-names"
 import { Ionicons } from "@expo/vector-icons"

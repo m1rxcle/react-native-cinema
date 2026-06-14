@@ -14,7 +14,7 @@ interface Props<T extends FieldValues> {
 
 const FormField = <T extends FieldValues>({ control, label, controllerName, placeholder, disabled, error, className }: Props<T>) => {
 	return (
-		<View className="flex flex-col gap-2 flex-1">
+		<View className="flex flex-col gap-2">
 			<Text className={`font-semibold font-nunito text-black ${error && "text-red-500"}`}>{label}</Text>
 			<Controller
 				control={control}

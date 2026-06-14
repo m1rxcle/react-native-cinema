@@ -1,5 +1,6 @@
-import type { IFilmScheduleResponse, IHall } from "@/@types"
-import { getSeancePlaces } from "@/shared/utils/get-seance-places"
+import type { IFilmScheduleResponse } from "@/@types/response.type"
+import type { IHall } from "@/@types/ticket.type"
+import { getSeanceHall } from "@/shared/utils/get-seance-places"
 import normalizeLocalParams from "@/shared/utils/normalize-local-params"
 import { useMemo } from "react"
 
@@ -8,7 +9,7 @@ export default function useGetHall(schedules: IFilmScheduleResponse["schedules"]
 
 	const hall = useMemo(() => {
 		if (!schedules) return
-		return getSeancePlaces(schedules, normalizeSeanceId)
+		return getSeanceHall(schedules, normalizeSeanceId)
 	}, [schedules, normalizeSeanceId])
 
 	if (!hall) return null

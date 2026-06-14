@@ -1,8 +1,7 @@
-import type { IFilmsResponse } from "@/@types"
+import type { IFilmsResponse } from "@/@types/response.type"
 import { filmApi } from "@/api/film.api"
 import FilmsList from "@/shared/components/films/films-list"
 import { FilmListSkeleton } from "@/shared/components/skeletons/film-list-skeleton"
-import useHideTabBar from "@/shared/hooks/use-hide-tab-bar"
 import { useEffect, useState } from "react"
 import { ScrollView, Text } from "react-native"
 
@@ -36,7 +35,7 @@ export default function Index() {
 		load()
 	}, [])
 
-	const { onScroll } = useHideTabBar()
+	/* const { onScroll } = useHideTabBar() */
 
 	if (loadingFilms) return <FilmListSkeleton />
 
@@ -48,7 +47,7 @@ export default function Index() {
 	}
 
 	return (
-		<ScrollView onScroll={onScroll} className="background flex-1">
+		<ScrollView /* onScroll={onScroll} */ className="background flex-1">
 			<Text className="text-2xl font-nunito font-bold mb-3 container">Фильмы</Text>
 
 			{error && <Text className="text-red-500 text-lg">Ошибка: {error}</Text>}

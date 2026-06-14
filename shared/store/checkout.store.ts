@@ -1,4 +1,5 @@
-import type { ICreditCardInfo, IUserDetails } from "@/@types"
+import type { ICreditCardInfo } from "@/@types/order.type"
+import type { IUserDetails } from "@/@types/user.type"
 import { create } from "zustand"
 
 type TInitialState = {

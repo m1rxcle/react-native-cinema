@@ -1,37 +1,17 @@
 import type { TabRouteNames } from "@/@types"
 import { TABS_ICONS, TABS_ROUT_NAME } from "@/shared/constants/tab-bar.constants"
-import { useTabBarStore } from "@/shared/store/tab-bar.store"
 import { Ionicons } from "@expo/vector-icons"
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs"
 import { Dimensions, Text, TouchableOpacity, View } from "react-native"
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
 
 const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
-	const { hidden } = useTabBarStore()
-
 	const translateX = useSharedValue(0)
 	const animatedStyle = useAnimatedStyle(() => {
 		return {
 			transform: [{ translateX: translateX.value }],
 		}
 	})
-	/* const tabStyle = useAnimatedStyle(() => {
-		return {
-			transform: [
-				{
-					translateY: withTiming(hidden ? 100 : 0, {
-						duration: 300,
-					}),
-				},
-				{
-					scale: withTiming(hidden ? 0 : 1),
-				},
-			],
-			opacity: withTiming(hidden ? 0 : 1, {
-				duration: 300,
-			}),
-		}
-	}) */
 
 	const SCREEN_WIDTH = Dimensions.get("window").width
 

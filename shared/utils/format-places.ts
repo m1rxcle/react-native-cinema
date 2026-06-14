@@ -1,5 +1,3 @@
-import type { IPlace } from "@/@types"
-
 /**
  * Функция для форматирования мест
  * Принимает массив мест, активный сеанс и id фильма
@@ -13,6 +11,8 @@ import type { IPlace } from "@/@types"
  * @param filmName - название фильма string
  * @returns
  */
+
+import type { IPlace } from "@/@types/ticket.type"
 
 export const formattedPlaces = (
 	places: IPlace[][],

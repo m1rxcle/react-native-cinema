@@ -1,4 +1,4 @@
-import type { TTicket } from "@/@types"
+import type { TTicket } from "@/@types/ticket.type"
 import React from "react"
 import { Text, View } from "react-native"
 import TicketCard from "./ticket-card"

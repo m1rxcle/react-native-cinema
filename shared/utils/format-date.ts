@@ -9,7 +9,13 @@
  */
 
 export const formatDate = (date: string): string => {
+	if (date.length <= 3) return "Invalid Date"
+
 	const [day, month, year] = date.split(".")
+
+	if (!day || !month || !year) {
+		return "Invalid Date"
+	}
 
 	const convertTotDate = new Date(Number(year) + 2000, Number(month) - 1, Number(day))
 

@@ -1,4 +1,4 @@
-import type { FilmStuff } from "@/@types"
+import type { FilmStuff } from "@/@types/film.type"
 import { SERVER_API } from "@/shared/constants/app.constants"
 import { useState } from "react"
 import { Image, ScrollView, Text, View } from "react-native"

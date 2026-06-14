@@ -1,4 +1,4 @@
-import { IHall, IPlace, type IPlaceAfterFormat } from "@/@types"
+import type { IHall, IPlace, IPlaceAfterFormat } from "@/@types/ticket.type"
 import { usePlaceStore } from "@/shared/store/place.store"
 import { useSeanceStore } from "@/shared/store/seance.store"
 import { formattedPlaces } from "@/shared/utils/format-places"

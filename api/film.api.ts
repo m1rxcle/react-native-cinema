@@ -1,4 +1,4 @@
-import type { IFilmResponse, IFilmsResponse } from "@/@types"
+import type { IFilmResponse, IFilmsResponse } from "@/@types/response.type"
 import { api } from "./client/api"
 
 export const filmApi = {

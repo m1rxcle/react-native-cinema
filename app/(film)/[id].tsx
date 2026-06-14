@@ -1,4 +1,4 @@
-import type { IFilmResponse, IFilmScheduleResponse } from "@/@types"
+import type { IFilmResponse, IFilmScheduleResponse } from "@/@types/response.type"
 import { filmApi } from "@/api/film.api"
 import { scheduleApi } from "@/api/schedule.api"
 import DateBadge from "@/shared/components/badges/date-badge"

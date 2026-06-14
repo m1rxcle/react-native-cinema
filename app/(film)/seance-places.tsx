@@ -1,4 +1,4 @@
-import type { IFilmScheduleResponse } from "@/@types"
+import type { IFilmScheduleResponse } from "@/@types/response.type"
 import { scheduleApi } from "@/api/schedule.api"
 import Places from "@/shared/components/halls/places"
 import ButtonBack from "@/shared/components/kit/button-back"
