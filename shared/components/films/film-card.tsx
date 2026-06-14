@@ -1,4 +1,4 @@
-import type { IFilm } from "@/@types"
+import type { IFilm } from "@/@types/film.type"
 import { useRouter } from "expo-router"
 import React from "react"
 import { View } from "react-native"

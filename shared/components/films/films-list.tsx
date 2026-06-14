@@ -1,4 +1,4 @@
-import type { IFilm } from "@/@types"
+import type { IFilm } from "@/@types/film.type"
 import { ScrollView, Text, View } from "react-native"
 import { FilmCard } from "./film-card"
 

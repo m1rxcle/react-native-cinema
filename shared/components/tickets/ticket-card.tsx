@@ -1,4 +1,4 @@
-import type { TTicket } from "@/@types"
+import type { TTicket } from "@/@types/ticket.type"
 import { splitSeanceDate } from "@/shared/utils/split-seance-date"
 import { Ionicons } from "@expo/vector-icons"
 import React from "react"

@@ -1,4 +1,4 @@
-import type { TTicket } from "@/@types"
+import type { TTicket } from "@/@types/ticket.type"
 import { create } from "zustand"
 
 type TTicketsStore = {

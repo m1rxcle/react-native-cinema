@@ -1,4 +1,4 @@
-import type { IOrder } from "@/@types"
+import type { IOrder } from "@/@types/order.type"
 import { create } from "zustand"
 
 type TInitialState = {

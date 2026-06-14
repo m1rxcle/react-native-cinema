@@ -1,4 +1,4 @@
-import type { IPlaceAfterFormat } from "@/@types"
+import type { IPlaceAfterFormat } from "@/@types/ticket.type"
 import { flip, useFloating } from "@floating-ui/react-native"
 import React, { useLayoutEffect } from "react"
 import { Pressable, View } from "react-native"

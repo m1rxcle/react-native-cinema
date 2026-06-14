@@ -1,13 +1,5 @@
-import type { PlaceTypeEnum } from "@/@types"
+import type { TSelectedPlace } from "@/@types/ticket.type"
 import { create } from "zustand"
-
-type TSelectedPlace = {
-	id: string
-	price: number
-	type: PlaceTypeEnum
-	row: number
-	seat: number
-}
 
 type PlaceStore = {
 	selectedPlaceList: TSelectedPlace[]

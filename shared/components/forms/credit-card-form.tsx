@@ -18,18 +18,17 @@ import FormField from "../kit/form-field"
 import Button from "../ui/button"
 
 const CreditCardDetailsForm = () => {
-	const { filmId } = useLocalSearchParams()
-
-	const normalizeFilmId = normalizeLocalParams(filmId)
-
-	const router = useRouter()
-
 	const [loadingPayload, setLoadingPayload] = useState(false)
+
+	const { filmId } = useLocalSearchParams()
+	const router = useRouter()
 
 	const { creditCardInfo, setCreditCardInfo, userDetails } = useCheckoutStore()
 	const { activeSeance } = useSeanceStore()
 	const { ticketData } = useTicketsStore()
 	const { setLastOrder } = useOrderStore()
+
+	const normalizeFilmId = normalizeLocalParams(filmId)
 
 	const {
 		control,
@@ -107,7 +106,15 @@ const CreditCardDetailsForm = () => {
 						/>
 						<View className="flex flex-row justify-between gap-4">
 							<ExpiryDateField control={control} error={errors.month || errors.year} disabled={loadingPayload} />
-							<FormField control={control} label="CVV*" controllerName="cvv" placeholder="0000" error={errors.cvv} disabled={loadingPayload} />
+							<FormField
+								control={control}
+								label="CVV*"
+								controllerName="cvv"
+								placeholder="0000"
+								error={errors.cvv}
+								disabled={loadingPayload}
+								className="flex-1"
+							/>
 						</View>
 					</View>
 				</View>

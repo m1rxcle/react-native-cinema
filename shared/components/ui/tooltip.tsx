@@ -1,4 +1,4 @@
-import { type IPlaceAfterFormat } from "@/@types"
+import type { IPlaceAfterFormat } from "@/@types/ticket.type"
 import { useState } from "react"
 import { Pressable, Text, View } from "react-native"
 
