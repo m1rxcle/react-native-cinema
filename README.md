@@ -1,50 +1,151 @@
-# Welcome to your Expo app 👋
+# 🎬 React Cinema (React Native + Expo)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Мобильное приложение для просмотра фильмов, выбора сеансов и покупки билетов с авторизацией через OTP-код.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Tech Stack
 
-   ```bash
-   npm install
-   ```
+- ⚛️ React Native (Expo)
+- 🧭 Expo Router (file-based routing)
+- 🗂 Zustand (state management)
+- 🧪 Vitest (unit testing)
+- 🧾 Zod (validation schemas)
+- 🌐 Axios (API requests)
+- 🎨 NativeWind (Tailwind for RN)
+- 🔷 TypeScript
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 📱 Features
 
-In the output, you'll find options to open the app in a
+### 🔐 Auth
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Авторизация по номеру телефона
+- Получение OTP-кода
+- Подтверждение кода и получение токена
+- Сохранение сессии пользователя
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 🎬 Movies
 
-## Get a fresh project
+- Список фильмов
+- Детальная страница фильма
+- Информация о актёрах, жанрах, рейтингах
 
-When you're ready, run:
+### 🎟 Tickets
+
+- Выбор мест в зале
+- Расчёт общей стоимости
+- Формирование заказа
+
+### 🧾 Orders
+
+- Создание заказа
+- Просмотр последнего заказа
+- Статусы заказа
+
+---
+
+## 🧠 Architecture
+
+Проект разделён на слои:
+shared/
+api/ # axios API layer
+store/ # Zustand stores
+utils/ # helper functions
+schemas/ # Zod schemas
+tests/ # unit tests
+
+---
+
+## 🧪 Testing
+
+Используется **Vitest** для unit-тестирования:
+
+### Что покрыто
+
+- utils (formatters, parsers)
+- zod schemas (validation logic)
+- zustand stores (state logic)
+
+---
+
+### Запуск тестов
 
 ```bash
-npm run reset-project
+npm run test
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 🔐 Auth Flow
 
-To learn more about developing your project with Expo, look at the following resources:
+Phone → OTP request → Code verify → Token → Session
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## 📦 State Management (Zustand)
 
-Join our community of developers creating universal apps.
+Основные сторы:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+useAuthStore — телефон и код OTP
+useTicketsStore — выбранные билеты + сумма
+useOrderStore — текущий заказ
+usePlaceStore — выбранные места
+useCheckoutStore — данные пользователя + карта
+useTabBarStore — UI состояние таб-бара
+
+---
+
+## 🧾 API
+
+Основные endpoints:
+
+Auth
+POST /api/auth/otp — отправка OTP
+POST /api/users/signin — вход по коду
+Users
+GET /api/users/session — текущая сессия
+PATCH /api/users/profile — обновление профиля
+
+---
+
+## 📁 Routing
+
+Используется Expo Router:
+
+app/
+(auth)/
+register.tsx
+code.tsx
+(tabs)/
+profile.tsx
+index.tsx
+
+---
+
+## ⚙️ CI (GitHub Actions)
+
+Проект поддерживает автоматический запуск тестов через GitHub Actions:
+
+запуск при push
+запуск при PR
+проверка тестов перед merge
+
+---
+
+## 📌 Notes
+
+Все бизнес-логика покрыта unit-тестами
+Используется strict TypeScript
+Zustand используется без Redux boilerplate
+API слой изолирован через axios
+
+---
+
+## 🏁 Status
+
+🚧 Project in active development
+🎯 Focus: architecture, testing, clean state management
+
+---
